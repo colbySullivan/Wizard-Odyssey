@@ -1,6 +1,5 @@
 extends CharacterBody2D
 
-@export var mouse_speed = 200
 @export var key_speed = 5
 
 @onready var animated_sprite = $AnimationPlayer
@@ -13,8 +12,10 @@ var going_ghost = false
 @export var ghost_node : PackedScene
 @onready var ghost_timer = $GhostTimer
 
-var target = null
 const GRAVITY = 200.0
+
+func _ready():
+	position = Vector2(0,0)
 
 func _physics_process(delta):
 	velocity.y += delta * GRAVITY
@@ -49,15 +50,15 @@ func check_ghosting_orientation(ghost):
 		
 func add_ghost():
 	var ghost = ghost_node.instantiate()
-	# need to offset y due to scene pos issues
-	ghost.position = position + Vector2(0,-6)
+	# TODO need to fix this janky setup
+	ghost.position = position + Vector2(585,270)
+	print("Ghost", ghost.position)
+	print(position)
 	check_ghosting_orientation(ghost)
 	get_tree().current_scene.add_child(ghost)
-	#pass
-
 
 func _on_ghost_timer_timeout():
-	if velocity != Vector2.ZERO && going_ghost:
+	if going_ghost:
 		add_ghost()
 		
 func is_dashing():
@@ -65,7 +66,3 @@ func is_dashing():
 		going_ghost = true
 	else:
 		going_ghost = false
-
-# TODO Remove this and button later
-func _on_button_pressed():
-	get_tree().reload_current_scene()

@@ -201,7 +201,6 @@ transitions = ["Start", "idle", SubResource("AnimationNodeStateMachineTransition
 [node name="CharacterBody2D" type="CharacterBody2D"]
 position = Vector2(-1.5, 6)
 script = ExtResource("1_rgk1n")
-key_speed = null
 ghost_node = ExtResource("2_g1vof")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
