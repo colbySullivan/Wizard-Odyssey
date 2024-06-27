@@ -9,11 +9,10 @@
 size = Vector2(944.5, 20)
 
 [node name="Main" type="Node2D"]
-position = Vector2(591, 276)
 
 [node name="CharacterBody2D" parent="." instance=ExtResource("1_7y1wu")]
 position = Vector2(-25, -148)
-key_speed = null
+key_speed = 5
 
 [node name="Ground" type="StaticBody2D" parent="."]
 physics_material_override = SubResource("PhysicsMaterial_dqqss")

@@ -51,7 +51,7 @@ func check_ghosting_orientation(ghost):
 func add_ghost():
 	var ghost = ghost_node.instantiate()
 	# TODO need to fix this janky setup
-	ghost.position = position + Vector2(585,270)
+	ghost.position = position + + Vector2(0,-6)
 	print("Ghost", ghost.position)
 	print(position)
 	check_ghosting_orientation(ghost)
