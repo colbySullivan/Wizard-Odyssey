@@ -1,18 +1,68 @@
-[gd_scene load_steps=5 format=3 uid="uid://bv8dpd31fpyiv"]
+[gd_scene load_steps=13 format=3 uid="uid://bv8dpd31fpyiv"]
 
 [ext_resource type="PackedScene" uid="uid://b6ngsp4nesye4" path="res://Prefabs/Player/Player.tscn" id="1_7y1wu"]
 [ext_resource type="Texture2D" uid="uid://dc5nilnyasqlh" path="res://icon.svg" id="2_v0oda"]
+[ext_resource type="Texture2D" uid="uid://b33n4dy1kr5rb" path="res://Assets/assets/Original Legacy-Fantasy - High Forest 2.3/Mob/Boar/Walk/Walk-Base-Sheet.png" id="3_wtfem"]
 
 [sub_resource type="PhysicsMaterial" id="PhysicsMaterial_dqqss"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_4v48v"]
 size = Vector2(944.5, 20)
 
+[sub_resource type="AtlasTexture" id="AtlasTexture_ynf2l"]
+atlas = ExtResource("3_wtfem")
+region = Rect2(0, 0, 48, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_adrib"]
+atlas = ExtResource("3_wtfem")
+region = Rect2(48, 0, 48, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_0etkf"]
+atlas = ExtResource("3_wtfem")
+region = Rect2(96, 0, 48, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_rcdey"]
+atlas = ExtResource("3_wtfem")
+region = Rect2(144, 0, 48, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ogk6g"]
+atlas = ExtResource("3_wtfem")
+region = Rect2(192, 0, 48, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_eae4m"]
+atlas = ExtResource("3_wtfem")
+region = Rect2(240, 0, 48, 32)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_mtlma"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_ynf2l")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_adrib")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_0etkf")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_rcdey")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_ogk6g")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_eae4m")
+}],
+"loop": true,
+"name": &"new_animation",
+"speed": 5.0
+}]
+
 [node name="Main" type="Node2D"]
 
 [node name="CharacterBody2D" parent="." instance=ExtResource("1_7y1wu")]
 position = Vector2(-25, -148)
-key_speed = 5
 
 [node name="Ground" type="StaticBody2D" parent="."]
 physics_material_override = SubResource("PhysicsMaterial_dqqss")
@@ -25,3 +75,9 @@ texture = ExtResource("2_v0oda")
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Ground"]
 position = Vector2(-113.75, 29)
 shape = SubResource("RectangleShape2D_4v48v")
+
+[node name="Boar" type="AnimatedSprite2D" parent="."]
+position = Vector2(177, -20)
+sprite_frames = SubResource("SpriteFrames_mtlma")
+animation = &"new_animation"
+frame_progress = 0.0556392
