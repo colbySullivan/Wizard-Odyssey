@@ -1,7 +1,8 @@
-[gd_scene load_steps=13 format=3 uid="uid://bv8dpd31fpyiv"]
+[gd_scene load_steps=15 format=3 uid="uid://bv8dpd31fpyiv"]
 
 [ext_resource type="PackedScene" uid="uid://b6ngsp4nesye4" path="res://Prefabs/Player/Player.tscn" id="1_7y1wu"]
 [ext_resource type="Texture2D" uid="uid://dc5nilnyasqlh" path="res://icon.svg" id="2_v0oda"]
+[ext_resource type="Script" path="res://Scripts/Mobs/Boar.gd" id="3_cnp6w"]
 [ext_resource type="Texture2D" uid="uid://b33n4dy1kr5rb" path="res://Assets/assets/Original Legacy-Fantasy - High Forest 2.3/Mob/Boar/Walk/Walk-Base-Sheet.png" id="3_wtfem"]
 
 [sub_resource type="PhysicsMaterial" id="PhysicsMaterial_dqqss"]
@@ -55,9 +56,12 @@ animations = [{
 "texture": SubResource("AtlasTexture_eae4m")
 }],
 "loop": true,
-"name": &"new_animation",
+"name": &"walking",
 "speed": 5.0
 }]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_pavqn"]
+size = Vector2(45, 28)
 
 [node name="Main" type="Node2D"]
 
@@ -76,8 +80,14 @@ texture = ExtResource("2_v0oda")
 position = Vector2(-113.75, 29)
 shape = SubResource("RectangleShape2D_4v48v")
 
-[node name="Boar" type="AnimatedSprite2D" parent="."]
-position = Vector2(177, -20)
+[node name="Boar" type="CharacterBody2D" parent="."]
+position = Vector2(179, -129)
+script = ExtResource("3_cnp6w")
+
+[node name="Sprite" type="AnimatedSprite2D" parent="Boar"]
 sprite_frames = SubResource("SpriteFrames_mtlma")
-animation = &"new_animation"
-frame_progress = 0.0556392
+animation = &"walking"
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Boar"]
+position = Vector2(-1.5, 3)
+shape = SubResource("RectangleShape2D_pavqn")
