@@ -1,6 +1,5 @@
 extends State
 class_name mob_hit
-@onready var sprite = $"../../Sprite"
 
 func Enter():
 	sprite.play("hit")
@@ -8,5 +7,5 @@ func Enter():
 func Exit():
 	pass
 	
-func Update(_delat:float):
+func Update(_delta:float):
 	pass

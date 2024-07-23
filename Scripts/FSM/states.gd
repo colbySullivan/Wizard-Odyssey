@@ -3,6 +3,9 @@ class_name State
 
 signal state_transition
 
+@onready var sprite = $"../../Sprite"
+@onready var boar = $"../.."
+
 func Enter():
 	pass
 

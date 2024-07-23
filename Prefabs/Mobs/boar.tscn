@@ -1,13 +1,15 @@
-[gd_scene load_steps=27 format=3 uid="uid://bjny2yvc5cn45"]
+[gd_scene load_steps=35 format=3 uid="uid://bjny2yvc5cn45"]
 
 [ext_resource type="Script" path="res://Scripts/Mobs/Boar.gd" id="1_y3rpr"]
 [ext_resource type="Texture2D" uid="uid://b33n4dy1kr5rb" path="res://Assets/assets/Original Legacy-Fantasy - High Forest 2.3/Mob/Boar/Walk/Walk-Base-Sheet.png" id="2_0here"]
 [ext_resource type="Texture2D" uid="uid://cf4lyibyhviq8" path="res://Assets/assets/Original Legacy-Fantasy - High Forest 2.3/Mob/Boar/Hit-Vanish/Hit-Sheet.png" id="2_1c0vd"]
 [ext_resource type="Texture2D" uid="uid://5yejps5up7i3" path="res://Assets/assets/Original Legacy-Fantasy - High Forest 2.3/Mob/Boar/Idle/Idle-Sheet.png" id="3_b4hcf"]
 [ext_resource type="Script" path="res://Scripts/FSM/FiniteStateMachine.gd" id="3_o8m1p"]
+[ext_resource type="Texture2D" uid="uid://c5b8qs8qn12f8" path="res://Assets/assets/Original Legacy-Fantasy - High Forest 2.3/Mob/Boar/Run/Run-Sheet.png" id="4_jva26"]
 [ext_resource type="Script" path="res://Scripts/Mobs/idle_state.gd" id="4_ln6kc"]
-[ext_resource type="Script" path="res://Scripts/Mobs/approach_state.gd" id="5_nugvh"]
+[ext_resource type="Script" path="res://Scripts/Mobs/walk_state.gd" id="5_nugvh"]
 [ext_resource type="Script" path="res://Scripts/Mobs/hit_state.gd" id="8_rk08t"]
+[ext_resource type="Script" path="res://Scripts/Mobs/run_state.gd" id="10_qp8yr"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_78imk"]
 atlas = ExtResource("2_1c0vd")
@@ -40,6 +42,30 @@ region = Rect2(96, 0, 48, 32)
 [sub_resource type="AtlasTexture" id="AtlasTexture_fl8cd"]
 atlas = ExtResource("3_b4hcf")
 region = Rect2(144, 0, 48, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_vpr7i"]
+atlas = ExtResource("4_jva26")
+region = Rect2(0, 0, 48, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_hq7y0"]
+atlas = ExtResource("4_jva26")
+region = Rect2(48, 0, 48, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_8e1l0"]
+atlas = ExtResource("4_jva26")
+region = Rect2(96, 0, 48, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_cj5b5"]
+atlas = ExtResource("4_jva26")
+region = Rect2(144, 0, 48, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_dseac"]
+atlas = ExtResource("4_jva26")
+region = Rect2(192, 0, 48, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_wap81"]
+atlas = ExtResource("4_jva26")
+region = Rect2(240, 0, 48, 32)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_ynf2l"]
 atlas = ExtResource("2_0here")
@@ -103,6 +129,29 @@ animations = [{
 }, {
 "frames": [{
 "duration": 1.0,
+"texture": SubResource("AtlasTexture_vpr7i")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_hq7y0")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_8e1l0")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_cj5b5")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_dseac")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_wap81")
+}],
+"loop": true,
+"name": &"run",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
 "texture": SubResource("AtlasTexture_ynf2l")
 }, {
 "duration": 1.0,
@@ -121,7 +170,7 @@ animations = [{
 "texture": SubResource("AtlasTexture_eae4m")
 }],
 "loop": true,
-"name": &"walking",
+"name": &"walk",
 "speed": 5.0
 }]
 
@@ -140,7 +189,7 @@ script = ExtResource("1_y3rpr")
 
 [node name="Sprite" type="AnimatedSprite2D" parent="."]
 sprite_frames = SubResource("SpriteFrames_mtlma")
-animation = &"idle"
+animation = &"run"
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 position = Vector2(-1.5, 3)
@@ -153,11 +202,14 @@ initial_state = NodePath("idle")
 [node name="idle" type="Node" parent="FSM"]
 script = ExtResource("4_ln6kc")
 
-[node name="approach" type="Node" parent="FSM"]
+[node name="walk" type="Node" parent="FSM"]
 script = ExtResource("5_nugvh")
 
 [node name="hit" type="Node" parent="FSM"]
 script = ExtResource("8_rk08t")
+
+[node name="run" type="Node" parent="FSM"]
+script = ExtResource("10_qp8yr")
 
 [node name="attackArea" type="Area2D" parent="."]
 

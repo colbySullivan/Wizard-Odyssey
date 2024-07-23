@@ -1,8 +1,8 @@
 extends State
-class_name mob_idle
+class_name mob_run
 
 func Enter():
-	sprite.play("idle")
+	sprite.play("run")
 
 func Exit():
 	pass
