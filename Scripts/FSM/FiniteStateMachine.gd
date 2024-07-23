@@ -19,10 +19,7 @@ func _process(delta):
 	if current_state:
 		current_state.Update(delta)
 
-func change_state(old_state : State, new_state_name : String):
-	if old_state != current_state:
-		print("invalid change state")
-		return
+func change_state(new_state_name : String):
 	var new_state = states.get(new_state_name.to_lower())
 	if !new_state:
 		print("state empty")

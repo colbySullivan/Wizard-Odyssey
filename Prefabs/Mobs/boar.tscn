@@ -1,9 +1,45 @@
-[gd_scene load_steps=13 format=3 uid="uid://bjny2yvc5cn45"]
+[gd_scene load_steps=27 format=3 uid="uid://bjny2yvc5cn45"]
 
 [ext_resource type="Script" path="res://Scripts/Mobs/Boar.gd" id="1_y3rpr"]
 [ext_resource type="Texture2D" uid="uid://b33n4dy1kr5rb" path="res://Assets/assets/Original Legacy-Fantasy - High Forest 2.3/Mob/Boar/Walk/Walk-Base-Sheet.png" id="2_0here"]
+[ext_resource type="Texture2D" uid="uid://cf4lyibyhviq8" path="res://Assets/assets/Original Legacy-Fantasy - High Forest 2.3/Mob/Boar/Hit-Vanish/Hit-Sheet.png" id="2_1c0vd"]
+[ext_resource type="Texture2D" uid="uid://5yejps5up7i3" path="res://Assets/assets/Original Legacy-Fantasy - High Forest 2.3/Mob/Boar/Idle/Idle-Sheet.png" id="3_b4hcf"]
 [ext_resource type="Script" path="res://Scripts/FSM/FiniteStateMachine.gd" id="3_o8m1p"]
-[ext_resource type="Script" path="res://Scripts/FSM/idle_state.gd" id="4_t6yow"]
+[ext_resource type="Script" path="res://Scripts/Mobs/idle_state.gd" id="4_ln6kc"]
+[ext_resource type="Script" path="res://Scripts/Mobs/approach_state.gd" id="5_nugvh"]
+[ext_resource type="Script" path="res://Scripts/Mobs/hit_state.gd" id="8_rk08t"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_78imk"]
+atlas = ExtResource("2_1c0vd")
+region = Rect2(0, 0, 48, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_omar2"]
+atlas = ExtResource("2_1c0vd")
+region = Rect2(48, 0, 48, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_k0qcm"]
+atlas = ExtResource("2_1c0vd")
+region = Rect2(96, 0, 48, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_v4q5j"]
+atlas = ExtResource("2_1c0vd")
+region = Rect2(144, 0, 48, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_h3fq7"]
+atlas = ExtResource("3_b4hcf")
+region = Rect2(0, 0, 48, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ebkx4"]
+atlas = ExtResource("3_b4hcf")
+region = Rect2(48, 0, 48, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_irq4l"]
+atlas = ExtResource("3_b4hcf")
+region = Rect2(96, 0, 48, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_fl8cd"]
+atlas = ExtResource("3_b4hcf")
+region = Rect2(144, 0, 48, 32)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_ynf2l"]
 atlas = ExtResource("2_0here")
@@ -33,6 +69,40 @@ region = Rect2(240, 0, 48, 32)
 animations = [{
 "frames": [{
 "duration": 1.0,
+"texture": SubResource("AtlasTexture_78imk")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_omar2")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_k0qcm")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_v4q5j")
+}],
+"loop": true,
+"name": &"hit",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_h3fq7")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_ebkx4")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_irq4l")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_fl8cd")
+}],
+"loop": true,
+"name": &"idle",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
 "texture": SubResource("AtlasTexture_ynf2l")
 }, {
 "duration": 1.0,
@@ -58,21 +128,46 @@ animations = [{
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_pavqn"]
 size = Vector2(45, 28)
 
+[sub_resource type="CircleShape2D" id="CircleShape2D_riwdk"]
+radius = 61.0328
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_uads0"]
+radius = 28.0713
+
 [node name="Boar" type="CharacterBody2D"]
 position = Vector2(179, -129)
 script = ExtResource("1_y3rpr")
 
 [node name="Sprite" type="AnimatedSprite2D" parent="."]
 sprite_frames = SubResource("SpriteFrames_mtlma")
-animation = &"walking"
+animation = &"idle"
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 position = Vector2(-1.5, 3)
 shape = SubResource("RectangleShape2D_pavqn")
 
-[node name="Node" type="Node" parent="." node_paths=PackedStringArray("initial_state")]
+[node name="FSM" type="Node" parent="." node_paths=PackedStringArray("initial_state")]
 script = ExtResource("3_o8m1p")
-initial_state = NodePath("Walking")
+initial_state = NodePath("idle")
 
-[node name="Walking" type="Node" parent="Node"]
-script = ExtResource("4_t6yow")
+[node name="idle" type="Node" parent="FSM"]
+script = ExtResource("4_ln6kc")
+
+[node name="approach" type="Node" parent="FSM"]
+script = ExtResource("5_nugvh")
+
+[node name="hit" type="Node" parent="FSM"]
+script = ExtResource("8_rk08t")
+
+[node name="attackArea" type="Area2D" parent="."]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="attackArea"]
+shape = SubResource("CircleShape2D_riwdk")
+
+[node name="hitBox" type="Area2D" parent="."]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="hitBox"]
+shape = SubResource("CircleShape2D_uads0")
+
+[connection signal="body_entered" from="attackArea" to="." method="_on_attack_area_body_entered"]
+[connection signal="body_entered" from="hitBox" to="." method="_on_hit_box_body_entered"]
