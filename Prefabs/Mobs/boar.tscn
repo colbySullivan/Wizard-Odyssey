@@ -1,0 +1,78 @@
+[gd_scene load_steps=13 format=3 uid="uid://bjny2yvc5cn45"]
+
+[ext_resource type="Script" path="res://Scripts/Mobs/Boar.gd" id="1_y3rpr"]
+[ext_resource type="Texture2D" uid="uid://b33n4dy1kr5rb" path="res://Assets/assets/Original Legacy-Fantasy - High Forest 2.3/Mob/Boar/Walk/Walk-Base-Sheet.png" id="2_0here"]
+[ext_resource type="Script" path="res://Scripts/FSM/FiniteStateMachine.gd" id="3_o8m1p"]
+[ext_resource type="Script" path="res://Scripts/FSM/idle_state.gd" id="4_t6yow"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ynf2l"]
+atlas = ExtResource("2_0here")
+region = Rect2(0, 0, 48, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_adrib"]
+atlas = ExtResource("2_0here")
+region = Rect2(48, 0, 48, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_0etkf"]
+atlas = ExtResource("2_0here")
+region = Rect2(96, 0, 48, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_rcdey"]
+atlas = ExtResource("2_0here")
+region = Rect2(144, 0, 48, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ogk6g"]
+atlas = ExtResource("2_0here")
+region = Rect2(192, 0, 48, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_eae4m"]
+atlas = ExtResource("2_0here")
+region = Rect2(240, 0, 48, 32)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_mtlma"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_ynf2l")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_adrib")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_0etkf")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_rcdey")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_ogk6g")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_eae4m")
+}],
+"loop": true,
+"name": &"walking",
+"speed": 5.0
+}]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_pavqn"]
+size = Vector2(45, 28)
+
+[node name="Boar" type="CharacterBody2D"]
+position = Vector2(179, -129)
+script = ExtResource("1_y3rpr")
+
+[node name="Sprite" type="AnimatedSprite2D" parent="."]
+sprite_frames = SubResource("SpriteFrames_mtlma")
+animation = &"walking"
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(-1.5, 3)
+shape = SubResource("RectangleShape2D_pavqn")
+
+[node name="Node" type="Node" parent="." node_paths=PackedStringArray("initial_state")]
+script = ExtResource("3_o8m1p")
+initial_state = NodePath("Walking")
+
+[node name="Walking" type="Node" parent="Node"]
+script = ExtResource("4_t6yow")
