@@ -51,7 +51,7 @@ func check_ghosting_orientation(ghost):
 func add_ghost():
 	var ghost = ghost_node.instantiate()
 	# TODO need to fix this janky setup
-	ghost.position = position + + Vector2(0,-6)
+	ghost.position = position + Vector2(0,-6)
 	print("Ghost", ghost.position)
 	print(position)
 	check_ghosting_orientation(ghost)
@@ -66,3 +66,10 @@ func is_dashing():
 		going_ghost = true
 	else:
 		going_ghost = false
+	slow_time(going_ghost)
+		
+func slow_time(toggle: bool):
+	if toggle == true:
+		Engine.time_scale = 0.25
+	else:
+		Engine.time_scale = 1
