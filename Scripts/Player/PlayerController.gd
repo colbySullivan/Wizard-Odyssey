@@ -1,6 +1,10 @@
 extends CharacterBody2D
 
-@export var key_speed = 5
+@export var speed = 20
+@export var jump_force = 100
+@export var gravity = 200
+@export_range(0.0, 1.0) var friction = 0.1
+@export_range(0.0 , 1.0) var acceleration = 0.25
 
 @onready var animated_sprite = $AnimationPlayer
 @onready var animated_tree = $AnimationTree
@@ -12,13 +16,12 @@ var going_ghost = false
 @export var ghost_node : PackedScene
 @onready var ghost_timer = $GhostTimer
 
-const GRAVITY = 200.0
-
 func _ready():
 	position = Vector2(0,0)
 
 func _physics_process(delta):
-	velocity.y += delta * GRAVITY
+	if not is_on_floor():
+		velocity.y += delta * gravity
 	is_dashing()
 	get_inputs()
 	check_animation_orientation()
@@ -26,10 +29,15 @@ func _physics_process(delta):
 
 func get_inputs():
 	# left and right movement
-	var direction = Input.get_vector("move_left","move_right","move_up","move_down")
-	velocity += direction * key_speed
+	var dir = Input.get_axis("move_left", "move_right") * speed
+	if dir != 0:
+		velocity.x = lerp(velocity.x, dir * speed, acceleration)
+	else:
+		velocity.x = lerp(velocity.x, 0.0, friction)
 	if Input.is_action_pressed("regenerate"):
 		get_tree().reload_current_scene()
+	if Input.is_action_pressed("move_up") and is_on_floor():
+		velocity.y -= jump_force
 
 # handle animations
 func check_animation_orientation():
