@@ -1,7 +1,8 @@
-[gd_scene load_steps=5 format=3 uid="uid://bv8dpd31fpyiv"]
+[gd_scene load_steps=6 format=3 uid="uid://bv8dpd31fpyiv"]
 
 [ext_resource type="PackedScene" uid="uid://b6ngsp4nesye4" path="res://Prefabs/Player/Player.tscn" id="1_7y1wu"]
 [ext_resource type="Texture2D" uid="uid://dc5nilnyasqlh" path="res://icon.svg" id="2_v0oda"]
+[ext_resource type="PackedScene" uid="uid://bjny2yvc5cn45" path="res://Prefabs/Mobs/boar.tscn" id="3_kntff"]
 
 [sub_resource type="PhysicsMaterial" id="PhysicsMaterial_dqqss"]
 
@@ -12,7 +13,6 @@ size = Vector2(944.5, 20)
 
 [node name="CharacterBody2D" parent="." instance=ExtResource("1_7y1wu")]
 position = Vector2(-25, -148)
-key_speed = 5
 
 [node name="Ground" type="StaticBody2D" parent="."]
 physics_material_override = SubResource("PhysicsMaterial_dqqss")
@@ -25,3 +25,5 @@ texture = ExtResource("2_v0oda")
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Ground"]
 position = Vector2(-113.75, 29)
 shape = SubResource("RectangleShape2D_4v48v")
+
+[node name="Boar" parent="." instance=ExtResource("3_kntff")]
