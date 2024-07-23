@@ -1,15 +1,13 @@
 [gd_scene load_steps=3 format=3 uid="uid://c1i2uhhlaw1ns"]
 
+[ext_resource type="Texture2D" uid="uid://w7qcg5c5402k" path="res://Sprites/Player/TheWizard.png" id="1_uro0o"]
 [ext_resource type="Script" path="res://Scripts/Player/Ghost.gd" id="1_y5b7q"]
-
-[sub_resource type="CompressedTexture2D" id="CompressedTexture2D_nmhju"]
-load_path = "res://.godot/imported/TheWizard.png-bb1edb7fd4275cb40338e246f4828f2d.ctex"
 
 [node name="Sprite2D" type="Sprite2D"]
 modulate = Color(0, 0, 0, 1)
 top_level = true
 texture_filter = 1
-texture = SubResource("CompressedTexture2D_nmhju")
+texture = ExtResource("1_uro0o")
 hframes = 4
 vframes = 3
 frame = 3
