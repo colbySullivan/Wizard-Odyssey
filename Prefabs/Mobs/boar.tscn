@@ -6,10 +6,10 @@
 [ext_resource type="Texture2D" uid="uid://5yejps5up7i3" path="res://Assets/assets/Original Legacy-Fantasy - High Forest 2.3/Mob/Boar/Idle/Idle-Sheet.png" id="3_b4hcf"]
 [ext_resource type="Script" path="res://Scripts/FSM/FiniteStateMachine.gd" id="3_o8m1p"]
 [ext_resource type="Texture2D" uid="uid://c5b8qs8qn12f8" path="res://Assets/assets/Original Legacy-Fantasy - High Forest 2.3/Mob/Boar/Run/Run-Sheet.png" id="4_jva26"]
-[ext_resource type="Script" path="res://Scripts/Mobs/idle_state.gd" id="4_ln6kc"]
-[ext_resource type="Script" path="res://Scripts/Mobs/walk_state.gd" id="5_nugvh"]
-[ext_resource type="Script" path="res://Scripts/Mobs/hit_state.gd" id="8_rk08t"]
-[ext_resource type="Script" path="res://Scripts/Mobs/run_state.gd" id="10_qp8yr"]
+[ext_resource type="Script" path="res://Scripts/FSM/Boar/idle_state.gd" id="4_ln6kc"]
+[ext_resource type="Script" path="res://Scripts/FSM/Boar/walk_state.gd" id="5_nugvh"]
+[ext_resource type="Script" path="res://Scripts/FSM/Boar/hit_state.gd" id="8_rk08t"]
+[ext_resource type="Script" path="res://Scripts/FSM/Boar/run_state.gd" id="10_qp8yr"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_78imk"]
 atlas = ExtResource("2_1c0vd")
