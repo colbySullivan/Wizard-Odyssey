@@ -221,5 +221,10 @@ shape = SubResource("CircleShape2D_riwdk")
 [node name="CollisionShape2D" type="CollisionShape2D" parent="hitBox"]
 shape = SubResource("CircleShape2D_uads0")
 
+[node name="InterestTimer" type="Timer" parent="."]
+one_shot = true
+
 [connection signal="body_entered" from="attackArea" to="." method="_on_attack_area_body_entered"]
+[connection signal="body_exited" from="attackArea" to="." method="_on_attack_area_body_exited"]
 [connection signal="body_entered" from="hitBox" to="." method="_on_hit_box_body_entered"]
+[connection signal="timeout" from="InterestTimer" to="." method="_on_timer_timeout"]
